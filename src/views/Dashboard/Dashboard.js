@@ -133,13 +133,7 @@ const MessageList = props => {
   let RPM5 = 0
   let TENSION = 0
   let status = 'primary'
-  let RPM1_list = []
-  let RPM2_list = []
-  let RPM3_list = []
-  let RPM4_list = []
-  let RPM5_list = []
-  let TENSION_list = []
-  let count = []
+  
   let datetime = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
 
   if (x[0] !== undefined) {
@@ -153,10 +147,6 @@ const MessageList = props => {
       RPM4 = 0
       RPM5 = 0
       TENSION = 0
-
-
-
-
     } else {
       var avg = Array.from(new_data.reduce(
         (acc, obj) => Object.keys(obj).reduce(
@@ -183,8 +173,9 @@ const MessageList = props => {
     }
   }
   const classes = useStyles();
-  setting_data.length !== 0 && parseFloat((setting_data.find(ele => ele.args === 'RPM1')).lowerlimit) >= parseFloat(RPM1) && console.log(1)
-  setting_data.length !== 0 && parseFloat((setting_data.find(ele => ele.args === 'RPM1')).upperlimit) <= parseFloat(RPM1) && console.log(0)
+  // console.log(setting_data.length)
+  // setting_data.length !== 0 && parseFloat((setting_data.find(ele => ele.args === 'RPM1')).lowerlimit) >= parseFloat(RPM1) && console.log(1)
+  // setting_data.length !== 0 && parseFloat((setting_data.find(ele => ele.args === 'RPM1')).upperlimit) <= parseFloat(RPM1) && console.log(0)
 
 
 

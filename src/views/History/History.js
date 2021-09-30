@@ -32,22 +32,17 @@ import CardBody from "components/Card/CardBody.js";
 
 import styles from "assets/jss/material-dashboard-pro-react/views/regularFormsStyle";
 import moment from "moment";
-
+import * as request from '../../request/index'
 
 
 
 const useStyles = makeStyles(styles);
 
 export default function History() {
-    const [checked, setChecked] = React.useState([24, 22]);
-    const [selectedEnabled, setSelectedEnabled] = React.useState("b");
-    const [selectedValue, setSelectedValue] = React.useState(null);
-    const handleChange = (event) => {
-        setSelectedValue(event.target.value);
-    };
-    const handleChangeEnabled = (event) => {
-        setSelectedEnabled(event.target.value);
-    };
+    const [checked, setChecked] = React.useState([]);
+    const [start_time, setStartTime] = React.useState(moment(new Date()).subtract(1, 'hours').format("YYYY-MM-DD HH:mm:ss"))
+    const [end_time, setEndTime] = React.useState(moment(new Date()).format("YYYY-MM-DD HH:mm:ss"))
+
     const handleToggle = (value) => {
         const currentIndex = checked.indexOf(value);
         const newChecked = [...checked];
@@ -59,6 +54,13 @@ export default function History() {
         }
         setChecked(newChecked);
     };
+
+    const submitForm = async() => {
+        console.log(checked)
+        console.log(start_time)
+        // let result = request.
+    }
+
     const classes = useStyles();
     return (
         <div>
@@ -73,7 +75,7 @@ export default function History() {
                         <CardBody>
                             <form>
                                 <GridContainer>
-                                <GridItem xs={12} sm={12} md={6}>
+                                    <GridItem xs={12} sm={12} md={6}>
                                         <Card>
                                             <CardHeader color="rose" icon>
 
@@ -84,8 +86,9 @@ export default function History() {
                                                 <br />
                                                 <FormControl fullWidth>
                                                     <Datetime
-                                                        initialValue={moment(new Date()).subtract(1, 'hours').format("YYYY-MM-DD HH:mm:ss")}
+                                                        initialValue={start_time}
                                                         inputProps={{ placeholder: "起始時間 Here" }}
+                                                        onChange={(e) => { setStartTime(moment(e).format("YYYY-MM-DD HH:mm:ss")) }}
                                                     />
                                                 </FormControl>
                                             </CardBody>
@@ -102,8 +105,9 @@ export default function History() {
                                                 <br />
                                                 <FormControl fullWidth>
                                                     <Datetime
-                                                        initialValue={moment(new Date()).format("YYYY-MM-DD HH:mm:ss")}
+                                                        initialValue={end_time}
                                                         inputProps={{ placeholder: "結束時間 Here" }}
+                                                        onChange={(e) => { setEndTime(moment(e).format("YYYY-MM-DD HH:mm:ss")) }}
                                                     />
                                                 </FormControl>
                                             </CardBody>
@@ -132,7 +136,7 @@ export default function History() {
                                                 control={
                                                     <Checkbox
                                                         tabIndex={-1}
-                                                        onClick={() => handleToggle(1)}
+                                                        onClick={() => handleToggle('RPM1')}
                                                         checkedIcon={
                                                             <Check className={classes.checkedIcon} />
                                                         }
@@ -161,7 +165,7 @@ export default function History() {
                                                 control={
                                                     <Checkbox
                                                         tabIndex={-1}
-                                                        onClick={() => handleToggle(2)}
+                                                        onClick={() => handleToggle('RPM2')}
                                                         checkedIcon={
                                                             <Check className={classes.checkedIcon} />
                                                         }
@@ -190,7 +194,7 @@ export default function History() {
                                                 control={
                                                     <Checkbox
                                                         tabIndex={-1}
-                                                        onClick={() => handleToggle(3)}
+                                                        onClick={() => handleToggle('RPM3')}
                                                         checkedIcon={
                                                             <Check className={classes.checkedIcon} />
                                                         }
@@ -219,7 +223,7 @@ export default function History() {
                                                 control={
                                                     <Checkbox
                                                         tabIndex={-1}
-                                                        onClick={() => handleToggle(4)}
+                                                        onClick={() => handleToggle('RPM4')}
                                                         checkedIcon={
                                                             <Check className={classes.checkedIcon} />
                                                         }
@@ -248,7 +252,7 @@ export default function History() {
                                                 control={
                                                     <Checkbox
                                                         tabIndex={-1}
-                                                        onClick={() => handleToggle(5)}
+                                                        onClick={() => handleToggle('RPM5')}
                                                         checkedIcon={
                                                             <Check className={classes.checkedIcon} />
                                                         }
@@ -277,7 +281,7 @@ export default function History() {
                                                 control={
                                                     <Checkbox
                                                         tabIndex={-1}
-                                                        onClick={() => handleToggle(6)}
+                                                        onClick={() => handleToggle('TENSION')}
                                                         checkedIcon={
                                                             <Check className={classes.checkedIcon} />
                                                         }
@@ -299,9 +303,9 @@ export default function History() {
 
                                     </GridItem>
 
-                                    
+
                                     <GridItem xs={12} sm={12} md={12}>
-                                        <Button color="rose">Submit</Button>
+                                        <Button color="rose" onClick={submitForm}>Submit</Button>
                                     </GridItem>
                                 </GridContainer>
 
